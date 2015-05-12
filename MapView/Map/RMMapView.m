@@ -1544,7 +1544,6 @@
             [_currentCallout presentCalloutFromRect:_currentAnnotation.layer.bounds
                                             inLayer:_currentAnnotation.layer
                                  constrainedToLayer:self.layer
-                           permittedArrowDirections:SMCalloutArrowDirectionDown
                                            animated:NO];
 
             _currentCallout.delegate = self;
@@ -1933,7 +1932,6 @@
     [_currentCallout presentCalloutFromRect:anAnnotation.layer.bounds
                                     inLayer:anAnnotation.layer
                          constrainedToLayer:self.layer
-                   permittedArrowDirections:SMCalloutArrowDirectionDown
                                    animated:animated];
 }
 

@@ -16,5 +16,4 @@
 + (instancetype)coordinateWithLatitude:(double)latitude longitude:(double)longitude;
 + (instancetype)coordinateWithCLLocationCoordinate2D:(CLLocationCoordinate2D)coordinate;
 
-
 @end

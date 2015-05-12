@@ -457,7 +457,7 @@
 				DD2B374E14CF814F008DE8CB /* FMDatabaseQueue.m */,
 			);
 			name = FMDB;
-			path = Map/FMDB/src;
+			path = Map/FMDB/src/fmdb;
 			sourceTree = "<group>";
 		};
 		B86F26A80E8742ED007A3773 /* Annotation Layers */ = {
