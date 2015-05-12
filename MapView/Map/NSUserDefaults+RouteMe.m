@@ -38,7 +38,7 @@
 - (RMProjectedPoint)projectedPointForKey:(NSString *)key
 {
 	NSDictionary *projectedPointDictionary = [self dictionaryForKey:key];
-	RMProjectedPoint projectedPoint = RMMakeProjectedPoint([[projectedPointDictionary objectForKey:kEasting] doubleValue],
+	RMProjectedPoint projectedPoint = RMProjectedPointMake([[projectedPointDictionary objectForKey:kEasting] doubleValue],
 														   [[projectedPointDictionary objectForKey:kNorthing] doubleValue]);
 	return projectedPoint;
 }
@@ -46,15 +46,15 @@
 - (void)setProjectedPoint:(RMProjectedPoint)projectedPoint forKey:(NSString *)key
 {
 	NSDictionary *projectedPointDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-											  [NSNumber numberWithDouble:projectedPoint.easting], kEasting,
-											  [NSNumber numberWithDouble:projectedPoint.northing], kNorthing, nil];
+											  [NSNumber numberWithDouble:projectedPoint.x], kEasting,
+											  [NSNumber numberWithDouble:projectedPoint.y], kNorthing, nil];
 	[self setObject:projectedPointDictionary forKey:key];
 }
 
 - (RMProjectedRect)projectedRectForKey:(NSString *)key
 {
 	NSDictionary *projectedRectDictionary = [self dictionaryForKey:key];
-	RMProjectedRect projectedRect = RMMakeProjectedRect([[projectedRectDictionary objectForKey:kEasting] doubleValue],
+	RMProjectedRect projectedRect = RMProjectedRectMake([[projectedRectDictionary objectForKey:kEasting] doubleValue],
 														[[projectedRectDictionary objectForKey:kNorthing] doubleValue],
 														[[projectedRectDictionary objectForKey:kWidth] doubleValue],
 														[[projectedRectDictionary objectForKey:kHeight] doubleValue]);
@@ -64,8 +64,8 @@
 - (void)setProjectedRect:(RMProjectedRect)projectedRect forKey:(NSString *)key
 {
 	NSDictionary *projectedRectDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-											 [NSNumber numberWithDouble:projectedRect.origin.easting], kEasting,
-											 [NSNumber numberWithDouble:projectedRect.origin.northing], kNorthing,
+											 [NSNumber numberWithDouble:projectedRect.origin.x], kEasting,
+											 [NSNumber numberWithDouble:projectedRect.origin.y], kNorthing,
 											 [NSNumber numberWithDouble:projectedRect.size.width], kWidth,
 											 [NSNumber numberWithDouble:projectedRect.size.height], kHeight, nil];
 	[self setObject:projectedRectDictionary forKey:key];
