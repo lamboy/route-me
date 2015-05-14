@@ -29,13 +29,17 @@ Pod::Spec.new do |s|
 
   s.prefix_header_file = 'MapView/MapView_Prefix.pch'
 
+  s.resource_bundle = { 'route-me' => 'MapView/Map/Resources/*' }
+
   s.frameworks = 'CoreGraphics', 'CoreLocation', 'Foundation', 'QuartzCore', 'UIKit'
 
   s.libraries = 'Proj4', 'sqlite3'
 
   s.xcconfig = { 'OTHER_LDFLAGS' => '-ObjC', 'LIBRARY_SEARCH_PATHS' => '"${PODS_ROOT}/route-me/Proj4"' }
 
-  s.preserve_paths = 'Proj4/libProj4.a', 'MapView/MapView.xcodeproj'
+  s.preserve_paths = 'MapView/MapView.xcodeproj', 'MapView/Map/Resources'
+
+  s.vendored_libraries = 'Proj4/libProj4.a'
 
   s.dependency 'FMDB'
   s.dependency 'SMCalloutView'
