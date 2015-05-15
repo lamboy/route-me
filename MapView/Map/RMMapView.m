@@ -107,6 +107,37 @@
 
 #pragma mark -
 
+@interface CLLocationManager (PrivateMethods)
+
+- (void)startUpdatingLocationIfNeed;
+
+@end
+
+@implementation CLLocationManager (PrivateMethods)
+
+- (void)startUpdatingLocationIfNeed {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
+    // As of iOS 8, apps must explicitly request location services permissions. CLLocationManager supports both levels, "Always" and "When In Use".
+    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1 && [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+        BOOL hasAlwaysKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationAlwaysUsageDescription"] != nil;
+        BOOL hasWhenInUseKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationWhenInUseUsageDescription"] != nil;
+        if (hasAlwaysKey) {
+            [self requestAlwaysAuthorization];
+        } else if (hasWhenInUseKey) {
+            [self requestWhenInUseAuthorization];
+        } else {
+            // At least one of the keys NSLocationAlwaysUsageDescription or NSLocationWhenInUseUsageDescription MUST be present in the Info.plist file to use location services on iOS 8+.
+            NSAssert(hasAlwaysKey || hasWhenInUseKey, @"To use location services in iOS 8+, your Info.plist must provide a value for either NSLocationWhenInUseUsageDescription or NSLocationAlwaysUsageDescription.");
+        }
+    }
+#endif /* __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1 */
+    [self startUpdatingLocation];
+}
+
+@end
+
+#pragma mark -
+
 @implementation RMMapView
 {
     id <RMMapViewDelegate> _delegate;
@@ -3151,7 +3182,7 @@
         _locationManager = [CLLocationManager new];
         _locationManager.headingFilter = 5.0;
         _locationManager.delegate = self;
-        [_locationManager startUpdatingLocation];
+        [_locationManager startUpdatingLocationIfNeed];
     }
     else
     {
